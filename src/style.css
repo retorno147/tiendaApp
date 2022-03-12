@@ -1,0 +1,42 @@
+.pd-3{
+	padding: 5rem;
+}
+
+.containerInput {
+	align-items: end;
+	right: 0;
+	display: flex;
+	justify-content: flex-end;
+	padding-bottom: 15px;
+}
+
+.inputBuscar {
+	width: 50% !important;
+}
+
+.margin-l {
+	margin-left: 70px;
+}
+
+.card {
+	border: none !important;
+}
+
+.color {
+    color: white !important
+}
+
+.btn-white{
+    color: white;
+    border-color: white;
+}
+
+.margin_right {
+    margin-right: 90px;
+}
+
+.ant-badge-count {
+    top: -14px !important;
+    right: -14px !important;
+    background: #17a2b8;
+}
