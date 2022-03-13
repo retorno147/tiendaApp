@@ -18,6 +18,14 @@ export const tiendaReducer = ( state = initialState, action) => {
                 ...state,
                 articulos: [...action.payload ]
             }
+
+        case types.datosArticulosLoaded:
+
+            return{
+                ...state,
+                datosArticulo: {...action.payload }
+            }
+    
         
         case types.spinnerLoaded:
 

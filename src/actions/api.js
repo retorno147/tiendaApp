@@ -31,3 +31,32 @@ const listArticulosLoaded = ( articulos ) => ({
     payload: articulos
 })
 
+export const datosArticulosApi = (id) => {
+
+return async( dispatch ) => {
+    dispatch( spinnerLoaded( true) )
+    await api.get(`/product/${id}`)
+        .then((response) => {
+        const body = response.data
+        dispatch( datosArticulosLoaded( body) )
+        dispatch( spinnerLoaded( false ) )
+    }).catch((error) => {
+        if (error?.response?.status === 401 ){
+        Swal.fire('Error', 'No se ha podido conectar con la BBDD, pongase en contacto con el Administrador.', 'error')
+        } else {
+        dispatch(error.response)
+        }
+    })
+}
+}
+
+const datosArticulosLoaded = ( articulo ) => ({
+type: types.datosArticulosLoaded,
+payload: articulo
+})
+
+const spinnerLoaded = ( loading ) => ({
+type: types.spinnerLoaded,
+payload: loading
+})
+

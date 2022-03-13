@@ -24,7 +24,7 @@ export const ArticulosCard = (articulos) => {
                             </p>
 
                             
-                            <Link to={`/protagonista/${id}`}>
+                            <Link to={`/articulos/${id}`}>
                                 Más información
                             </Link>
                         </div>
