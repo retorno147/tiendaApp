@@ -20,7 +20,7 @@ export const listArticulos = () => {
             if (error?.response?.status === 401 ){
             Swal.fire('Error', 'No se ha podido conectar con la BBDD, pongase en contacto con el Administrador.', 'error')
             } else {
-            dispatch(error.response)
+                dispatch(error.response.data.message)
             }
         })
     }
@@ -44,7 +44,7 @@ return async( dispatch ) => {
         if (error?.response?.status === 401 ){
         Swal.fire('Error', 'No se ha podido conectar con la BBDD, pongase en contacto con el Administrador.', 'error')
         } else {
-        dispatch(error.response)
+        dispatch(error.response.data.message)
         }
     })
 }
@@ -58,5 +58,31 @@ payload: articulo
 const spinnerLoaded = ( loading ) => ({
 type: types.spinnerLoaded,
 payload: loading
+})
+
+export const agregarCarritoNew = (articulo) => {
+
+    return async( dispatch ) => {
+        await api.post(`/cart`, articulo)
+            .then((response) => {
+            const body = response.data.count
+            dispatch( agregarCarritoLoaded( body) )
+        }).catch((error) => {
+            if (error?.response?.status === 401 ){
+            Swal.fire('Error', 'No se ha podido conectar con la BBDD, pongase en contacto con el Administrador.', 'error')
+            } else {
+            dispatch(error.response.data.message)
+            }
+        })
+    }
+}
+
+const agregarCarritoLoaded = (carrito) => ({
+    type: types.agregarCarritoLoaded,
+    payload: carrito
+})
+
+export const actualizarCarritoLoaded = () => ({
+    type: types.actualizarCarritoLoaded
 })
 

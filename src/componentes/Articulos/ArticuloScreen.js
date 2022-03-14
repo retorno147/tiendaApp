@@ -1,8 +1,9 @@
-import { useEffect, React } from 'react';
+import { useEffect, React, useState } from 'react';
+//import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams, Navigate, useNavigate } from 'react-router-dom'
-import { datosArticulosApi} from '../../actions/api';
+import { actualizarCarritoLoaded, agregarCarritoNew, datosArticulosApi} from '../../actions/api';
 import { Spinner } from '../ui/Spinner';
 
 
@@ -10,15 +11,20 @@ export const ArticuloScreen = () => {
 
     const { articuloId } = useParams();
     const navigate = useNavigate();
-    const { datosArticulo, loading } = useSelector(state => state.tiendas);
+    const { datosArticulo, loading, carrito } = useSelector(state => state.tiendas);
     const dispatch = useDispatch();
     const { brand, model, price, imgUrl, cpu, ram, os, battery, primaryCamera, secondaryCmera, dimentions, displayResolution, weight, options } = datosArticulo;
-    const { colors, storages} = options
     let listaPrimaryCamera = []
     let listaSecondaryCmera = []
+    const [formValues, setFormValues] = useState({
+        color: options?.colors[0]?.code,
+        storage: options?.storages[0]?.code,
+    })
 
     useEffect(() => {
         dispatch( datosArticulosApi(articuloId))
+        dispatch( actualizarCarritoLoaded())
+        setFormValues( formValues )
     }, [dispatch, articuloId])
     
 
@@ -40,6 +46,31 @@ export const ArticuloScreen = () => {
         listaSecondaryCmera = secondaryCmera.map((pd) =>
             pd = pd + ' / '
         )
+    }
+
+    let { color, storage} = formValues;
+
+    const handleInputChange = ({ target }) => {
+
+        setFormValues({
+            ...formValues,
+            [target.name]: target.value
+        })
+    }
+
+    const handleAnadirCarrito = async(e) => {
+
+        const articulo = {
+            id: articuloId,
+            colorCode: color !== undefined ? color :  options?.colors[0]?.code,
+            storageCode: storage !== undefined ? storage : options?.storages[0]?.code
+        }
+
+        e.preventDefault();
+        await dispatch( agregarCarritoNew(articulo) )
+        
+        document.cookie = 'carrito=' + (carrito + 1) +'; max-age=60;';
+        
     }
     
 
@@ -70,17 +101,18 @@ export const ArticuloScreen = () => {
                     <li className="list-group-item"> <b>Dimensiones: </b> { dimentions } </li>
                     <li className="list-group-item"> <b>Peso: </b> { weight } </li>
                 </ul>
-                <form >
+                <form className='style-form containerSelect' onSubmit={ handleAnadirCarrito }>
                     <div className="form-group">
                         <select
-                            className="form-control"
+                            className="form-control mg"
                             placeholder="Color"
                             name="color"
-                            value= { colors }
-                            //onChange= { handleRegisterInputChange }
+                            defaultValue={options?.colors[0].code}
+                            value= { color }
+                            onChange= { handleInputChange }
                         >
-                            {colors.map((pd) =>
-                                <option key={pd} value={pd.code} selected={colors.length === 1}>{pd.name}</option>
+                            {options?.colors.map((pd, id) =>
+                                <option key={id} value={pd.code} >{pd.name}</option>
                             )}
                             
                         </select>
@@ -88,23 +120,24 @@ export const ArticuloScreen = () => {
 
                     <div className="form-group">
                         <select
-                            className="form-control"
+                            className="form-control mg"
                             placeholder="Almacenamiento"
                             name="almacenamiento"
-                            value= { storages }
-                            //onChange= { handleRegisterInputChange }
+                            value= { storage }
+                            defaultValue={options?.storages[0].code}
+                            onChange= { handleInputChange }
                         >
-                            {storages.map((pd) =>
-                                <option key={pd} value={pd.code} selected={storages.length === 1}>{pd.name}</option>
+                            {options?.storages.map((pd, id) =>
+                                <option key={id} value={pd.code} >{pd.name}</option>
                             )}
                             
                         </select>
                     </div>
 
-                        <div className="form-group">
+                        <div className="form-group mg">
                             <input 
                                 type="submit" 
-                                className="btnSubmitTienda" 
+                                className="btn-carrito SubmitTienda" 
                                 value="Añadir al Carrito" />
                         </div>
                     </form>

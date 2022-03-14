@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { listArticulos } from '../../actions/api';
+import { listArticulos, actualizarCarritoLoaded } from '../../actions/api';
 import { useForm } from '../../hooks/useForm';
 import { getArticulo } from '../../selectors/getArticulo';
 import { ArticulosCard } from './ArticulosCard';
@@ -16,6 +16,7 @@ export const ArticulosList = () => {
 
     useEffect(() => {
         dispatch( listArticulos())
+        dispatch( actualizarCarritoLoaded())
     }, [dispatch])
 
     const {buscar} = formValues
