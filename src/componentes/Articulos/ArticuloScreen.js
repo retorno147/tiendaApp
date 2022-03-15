@@ -67,9 +67,8 @@ export const ArticuloScreen = () => {
         }
 
         e.preventDefault();
-        await dispatch( agregarCarritoNew(articulo) )
+        await dispatch( agregarCarritoNew(articulo, carrito) )
         
-        document.cookie = 'carrito=' + (carrito + 1) +'; max-age=60;';
         
     }
     
@@ -122,7 +121,7 @@ export const ArticuloScreen = () => {
                         <select
                             className="form-control mg"
                             placeholder="Almacenamiento"
-                            name="almacenamiento"
+                            name="storage"
                             value= { storage }
                             defaultValue={options?.storages[0].code}
                             onChange= { handleInputChange }

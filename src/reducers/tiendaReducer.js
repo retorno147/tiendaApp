@@ -5,7 +5,7 @@ const existe = document.cookie.split(';').some(function(item) {
 });
 
 if (!existe){
-    document.cookie = "carrito=0; max-age=60;";
+    document.cookie = "carrito=0; max-age=3600";
 }
 
 const initialState = {

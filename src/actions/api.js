@@ -60,12 +60,13 @@ type: types.spinnerLoaded,
 payload: loading
 })
 
-export const agregarCarritoNew = (articulo) => {
+export const agregarCarritoNew = (articulo, carrito) => {
 
     return async( dispatch ) => {
         await api.post(`/cart`, articulo)
             .then((response) => {
             const body = response.data.count
+            document.cookie = 'carrito=' + (carrito + body) +'; max-age=3600;';
             dispatch( agregarCarritoLoaded( body) )
         }).catch((error) => {
             if (error?.response?.status === 401 ){

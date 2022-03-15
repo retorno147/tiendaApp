@@ -12,7 +12,4 @@ expect.addSnapshotSerializer( createSerializer({ mode: 'deep'}) )
 // const noScroll = () => {};
 // Object.defineProperties( window, 'scrollTo', { value: noScroll, writeable: true});
 
-// jest.mock('sweetalert2', () => ({
-//     fire: jest.fn(),
-//     close: jest.fn(),
-//  }));
+// jest.

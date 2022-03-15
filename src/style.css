@@ -38,7 +38,7 @@
 .ant-badge-count {
     top: -14px !important;
     right: -14px !important;
-    background: #17a2b8;
+    background: #17a2b8 !important;
 }
 
 .style-bread{
@@ -91,4 +91,39 @@
 
 .navbar{
 	padding-top: 0.8rem;
+}
+
+
+.spinner {
+	margin-top: 94px;
+    margin-left: 64rem;
+}
+
+.spinner-border {
+	width: 5rem;
+    height: 5rem;
+}
+
+.ant-breadcrumb {
+	font-size: 18px;
+	margin-left: 5rem;
+}
+
+.ant-breadcrumb > span:last-child {
+    color: green;
+    font-weight: 700;
+}
+
+.ant-breadcrumb a {
+    color: white;
+}
+
+.ant-breadcrumb-separator {
+    margin: 0 9px;
+    color: white;
+}
+
+.ant-breadcrumb > span:last-child a {
+    color: green;
+    font-weight: 700;
 }
