@@ -1,21 +1,25 @@
-import React from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom'
-import { ArticulosCard } from '../componentes/Articulos/ArticulosCard'
-import { ArticuloScreen } from '../componentes/Articulos/ArticuloScreen'
-import { ArticulosList } from '../componentes/Articulos/ArticulosList'
-import { Navbar } from '../componentes/ui/Navbar'
+import React from "react";
+import { HashRouter, Route, Routes } from "react-router-dom";
+import { ProductsCard } from "../components/Products/ProductsCard";
+import { ProductScreen } from "../components/Products/ProductScreen";
+import { ProductsList } from "../components/Products/ProductsList";
+import { Navbar } from "../components/ui/Navbar";
 
 export const AppRouter = () => {
-    return (
-        <HashRouter>
-            <Navbar/>
-            <div className='container-fluid pd-3'>
-                <Routes>
-                    <Route exact path="/articulos/:articuloId" element={<ArticuloScreen/>}/>
-                    <Route exact path="/articulos" element={<ArticulosCard/>}/>
-                    <Route exact path='/*' element={<ArticulosList/>}/>
-                </Routes>
-            </div>
-        </HashRouter>
-    )
-}
+  return (
+    <HashRouter>
+      <Navbar />
+      <div className="container-fluid pd-3">
+        <Routes>
+          <Route
+            exact
+            path="/products/:productId"
+            element={<ProductScreen />}
+          />
+          <Route exact path="/products" element={<ProductsCard />} />
+          <Route exact path="/*" element={<ProductsList />} />
+        </Routes>
+      </div>
+    </HashRouter>
+  );
+};

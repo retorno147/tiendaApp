@@ -5,8 +5,8 @@ import { store } from './store/store'
 
 export const InitialApp = () => {
   return (
-    <Provider store={ store }>
-        <AppRouter/>
+    <Provider store={store}>
+      <AppRouter />
     </Provider>
   )
 }
